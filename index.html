@@ -19,7 +19,7 @@
         }
 
         .saldo {
-            font-size: 216px; /* Fonte bem grande */
+            font-size: 200px; /* Fonte bem grande */
             font-family: 'Corpo', sans-serif; /* Fonte Corporativo */
             font-weight: bold;
             margin-bottom: 20px;
@@ -59,7 +59,7 @@
     <button class="button" onclick="atualizarSaldo()">Atualizar Saldo</button>
 
     <script>
-        let saldoAtual = 500; // Saldo inicial
+        let saldoAtual = -4086.94; // Saldo inicial
 
         function formatarSaldo(saldo) {
             const isNegative = saldo < 0;
@@ -75,12 +75,6 @@
             const { saldoFormatado, className } = formatarSaldo(saldo);
             const saldoElement = document.getElementById('saldo');
             saldoElement.innerHTML = `<span class="${className}">${saldoFormatado}</span>`;
-        }
-
-        function atualizarSaldo() {
-            // Simula atualização de saldo (alterar conforme a lógica que você deseja)
-            saldoAtual = Math.random() > 0.5 ? 500 : -500; // Exemplo de alteração do saldo
-            exibirSaldo(saldoAtual);
         }
 
         // Exibir saldo inicial
