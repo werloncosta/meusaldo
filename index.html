@@ -1,55 +1,64 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saldo Atual</title>
+    <title>Saldo</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #111;
-            color: #0f0;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            font-size: 4rem;
-        }
-        input {
-            font-size: 2rem;
+            font-family: 'Corpo', sans-serif;
             text-align: center;
-            margin-top: 20px;
+            padding: 20px;
         }
-        button {
-            font-size: 1.5rem;
-            margin-top: 10px;
-            cursor: pointer;
+
+        .saldo {
+            font-size: 36px; /* Aumentei a fonte */
+            font-family: 'Corpo', sans-serif; /* Fonte Corporativo */
+            font-weight: bold;
+        }
+
+        .positivo {
+            color: green; /* Cor verde para positivo */
+        }
+
+        .negativo {
+            color: red; /* Cor vermelha para negativo */
+        }
+
+        .real {
+            font-size: 20px;
+            font-weight: normal;
         }
     </style>
 </head>
 <body>
-    <h1 id="saldo">$0,00</h1>
-    <input type="number" id="inputSaldo" placeholder="Digite o saldo">
-    <button onclick="atualizarSaldo()">Atualizar</button>
+    <div id="saldo" class="saldo">
+        <!-- O saldo será exibido aqui -->
+    </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const saldoSalvo = localStorage.getItem("saldo");
-            if (saldoSalvo) {
-                document.getElementById("saldo").textContent = `$${parseFloat(saldoSalvo).toFixed(2)}`;
-            }
-        });
+        function formatarSaldo(saldo) {
+            const isNegative = saldo < 0;
+            const saldoFormatado = saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-        function atualizarSaldo() {
-            let novoSaldo = document.getElementById("inputSaldo").value;
-            if (novoSaldo) {
-                localStorage.setItem("saldo", novoSaldo);
-                document.getElementById("saldo").textContent = `$${parseFloat(novoSaldo).toFixed(2)}`;
-            }
+            return {
+                saldoFormatado: saldoFormatado,
+                className: isNegative ? 'negativo' : 'positivo'
+            };
         }
+
+        function exibirSaldo(saldo) {
+            const { saldoFormatado, className } = formatarSaldo(saldo);
+            const saldoElement = document.getElementById('saldo');
+            saldoElement.innerHTML = `
+                <span class="${className}">${saldoFormatado}</span>
+                <div class="real">BRL</div>
+            `;
+        }
+
+        // Teste com saldo positivo e negativo
+        exibirSaldo(500); // Exemplo de saldo positivo
+        // exibirSaldo(-500); // Exemplo de saldo negativo
     </script>
 </body>
 </html>
