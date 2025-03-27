@@ -7,14 +7,22 @@
     <style>
         body {
             font-family: 'Corpo', sans-serif;
+            background-color: #000; /* Fundo preto */
+            color: #fff; /* Texto branco */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
             text-align: center;
-            padding: 20px;
+            flex-direction: column;
         }
 
         .saldo {
-            font-size: 36px; /* Aumentei a fonte */
+            font-size: 72px; /* Fonte bem grande */
             font-family: 'Corpo', sans-serif; /* Fonte Corporativo */
             font-weight: bold;
+            margin-bottom: 20px;
         }
 
         .positivo {
@@ -25,9 +33,21 @@
             color: red; /* Cor vermelha para negativo */
         }
 
-        .real {
-            font-size: 20px;
-            font-weight: normal;
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -36,7 +56,11 @@
         <!-- O saldo será exibido aqui -->
     </div>
 
+    <button class="button" onclick="atualizarSaldo()">Atualizar Saldo</button>
+
     <script>
+        let saldoAtual = 500; // Saldo inicial
+
         function formatarSaldo(saldo) {
             const isNegative = saldo < 0;
             const saldoFormatado = saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -50,15 +74,17 @@
         function exibirSaldo(saldo) {
             const { saldoFormatado, className } = formatarSaldo(saldo);
             const saldoElement = document.getElementById('saldo');
-            saldoElement.innerHTML = `
-                <span class="${className}">${saldoFormatado}</span>
-                <div class="real">BRL</div>
-            `;
+            saldoElement.innerHTML = `<span class="${className}">${saldoFormatado}</span>`;
         }
 
-        // Teste com saldo positivo e negativo
-        exibirSaldo(500); // Exemplo de saldo positivo
-        // exibirSaldo(-500); // Exemplo de saldo negativo
+        function atualizarSaldo() {
+            // Simula atualização de saldo (alterar conforme a lógica que você deseja)
+            saldoAtual = Math.random() > 0.5 ? 500 : -500; // Exemplo de alteração do saldo
+            exibirSaldo(saldoAtual);
+        }
+
+        // Exibir saldo inicial
+        exibirSaldo(saldoAtual);
     </script>
 </body>
 </html>
